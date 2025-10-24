@@ -1,14 +1,22 @@
+# Specify the Docker Compose file version
 version: "3.9"
 
 services:
+  # Define the "web" service
   web:
     build:
+      # The context is the current directory (where docker-compose.yml is)
       context: .
+      # Path to the Dockerfile to use
       dockerfile: docker/Dockerfile
+    # Map port 5000 of the host to port 5000 of the container
     ports:
       - "5000:5000"
+    # Mount local folder ./app to /app inside the container
     volumes:
       - ./app:/app
     environment:
+      # Set environment variable inside the container
       - DATA_FILE=/app/sample_data.json
+    # Automatically restart container unless stopped manually
     restart: unless-stopped
